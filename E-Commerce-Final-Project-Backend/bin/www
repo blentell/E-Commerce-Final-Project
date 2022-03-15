@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('meal-planner-backend:server');
+var debug = require('debug')('e-commerce-final-project-api:server');
 var http = require('http');
 
 /**

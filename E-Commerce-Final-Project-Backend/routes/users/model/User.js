@@ -19,8 +19,8 @@ const userSchema = new mongoose.Schema(
 		password: {
 			type: String,
 		},
-		mealList: [{ type: mongoose.Schema.ObjectId, ref: "meal" }],
-		recipeList: [{ type: mongoose.Schema.ObjectId, ref: "recipeDatabase" }],
+		cartList: [{ type: mongoose.Schema.ObjectId, ref: "cartDatabase" }],
+		orderHistoryList: [{ type: mongoose.Schema.ObjectId, ref: "orderHistoryDatabase" }],
 	},
 	{
 		timestamps: true,

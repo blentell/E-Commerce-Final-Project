@@ -8,7 +8,9 @@ var mongoose = require("mongoose");
 var cors = require("cors");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users/usersRouter");
-
+var productInventoryRouter = require("./routes/productInventory/productInventoryRouter");
+var cartDatabaseRouter = require("./routes/cartDatabase/cartDatabaseRouter");
+var orderHistoryDatabaseRouter = require("./routes/orderHistoryDatabase/orderHistoryDatabaseRouter");
 
 
 mongoose
@@ -29,9 +31,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
-
+app.use("/", indexRouter);
+app.use("/api/productInventory", productInventoryRouter);
+app.use("/api/cartDatabase", cartDatabaseRouter);
+app.use("/api/orderHistoryDatabase", orderHistoryDatabaseRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

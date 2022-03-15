@@ -2,12 +2,18 @@ const bcrypt = require("bcryptjs");
 var jwt = require("jsonwebtoken");
 
 const User = require("../model/User");
+const CartModel = require("../../cartDatabase/model/CartDatabase");
 const errorHandler = require('../../utils/errorHandler/errorHandler');
 
 async function getUserInfo(req, res, next) {
 	try {
 		const decodedData = res.locals.decodedData;
-		const foundUser = await User.findOne({ email: decodedData.email })
+		const foundUser = await User.findOne({ email: decodedData.email }).populate(
+			"cartList",
+			"-cartOwner -_v",
+			"orderHistoryList",
+			"-orderHistoryOwner -_v",
+		);
 		res.json({ message: "success", payload: foundUser });
 	} catch (e) {
 		res.status(500).json({ message: "error", error: errorHandler(e) });
@@ -65,11 +71,15 @@ async function login(req, res) {
 				{
 					email: foundUser.email,
 					username: foundUser.username,
+					lastName: foundUser.lastName,
+					firstName: foundUser.firstName,
 				},
 				process.env.JWT_SECRET,
 				{ expiresIn: "24d" }
 			);
-			res.json({ message: "success", payload: jwtToken });
+		let shoppingCart = await CartModel.find({ cartOwner: foundUser._id });
+			// Grab shopping cart data for this user
+			res.json({ message: "success", payload: { jwt: jwtToken, shoppingCart } });
 			console.log("Token: ", jwtToken);
 		}
 	} 
