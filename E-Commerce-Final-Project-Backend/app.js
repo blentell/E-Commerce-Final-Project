@@ -32,7 +32,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use("/api/users", usersRouter);
-app.use("/", indexRouter);
+app.use("/api", indexRouter);
 app.use("/api/productInventory", productInventoryRouter);
 app.use("/api/cartDatabase", cartDatabaseRouter);
 app.use("/api/orderHistoryDatabase", orderHistoryDatabaseRouter);
