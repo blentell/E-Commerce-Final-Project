@@ -1,7 +1,6 @@
 import { Button, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { Box } from "@mui/system";
-import axios from "axios";
 import jwtDecode from "jwt-decode";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -13,6 +12,7 @@ import { signInActionCreator } from "../../reduxStore";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Layout from "../layout/Layout";
+import Axios from "../lib/Axios";
 
 function SignInPage() {
 	const navigate = useNavigate();
@@ -35,7 +35,7 @@ function SignInPage() {
 	async function handleSubmit(e) {
 		e.preventDefault();
 		try {
-			let response = await axios.post("http://localhost:3001/api/users/login", {
+			let response = await Axios.post("/users/login", {
 				email,
 				password,
 			});
@@ -46,7 +46,7 @@ function SignInPage() {
 			const savedShoppingCart = response.data.payload.shoppingCart;
 
 			dispatch(signInActionCreator({ decodedToken, savedShoppingCart }));
-			navigate("/protected-home");
+			navigate("/");
 		} catch (e) {
 			toast(e.response.data.error);
 		}

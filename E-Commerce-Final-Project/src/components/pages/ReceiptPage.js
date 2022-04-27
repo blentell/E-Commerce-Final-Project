@@ -1,9 +1,9 @@
 import { Box, Typography } from "@mui/material";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import CheckToken from "../../hooks/CheckToken";
 import Layout from "../layout/Layout";
+import Axios from "../lib/Axios";
 
 const initialCheckout = {
 	category: "",
@@ -27,9 +27,9 @@ function OrderHistoryPage() {
 		}
 	}, []);
 	const retrieveOrder = async () => {
-		await axios
+		await Axios
 			.get(
-				`http://localhost:3001/api/orderHistoryDatabase/get-order/${orderId}`,
+				`/orderHistoryDatabase/get-order/${orderId}`,
 				{
 					headers: {
 						authorization: `Bearer ${window.localStorage.getItem("jwtToken")}`,

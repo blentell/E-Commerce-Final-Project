@@ -5,11 +5,11 @@ import CardActions from "@mui/material/CardActions";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import { Box } from "@mui/system";
-import axios from "axios";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { updateShoppingCart } from "../../reduxStore";
+import Axios from "../lib/Axios"
 
 function ShoppingCardDisplayPage(props) {
 
@@ -18,7 +18,7 @@ function ShoppingCardDisplayPage(props) {
 	const dispatch = useDispatch();
 	const handleAddToCart = async () => {
 		try {
-			const response = await axios.post("http://localhost:3001/api/cartDatabase/add-cart-item", {
+			const response = await Axios.post("/cartDatabase/add-cart-item", {
 				title,
 				brand,
 				description,

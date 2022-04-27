@@ -7,11 +7,11 @@ import {
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import { Box } from "@mui/system";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CheckToken from "../../hooks/CheckToken";
 import Layout from "../layout/Layout";
+import Axios from "../lib/Axios";
 
 const initialInventory = {
 	category: "",
@@ -36,8 +36,8 @@ function ProductInventoryandUpdatePage() {
 		}
 	}, []);
 	const getInventory = async () => {
-		await axios
-			.get("http://localhost:3001/api/productInventory/", {
+		await Axios
+			.get("/productInventory/", {
 				headers: {
 					authorization: `Bearer ${window.localStorage.getItem("jwtToken")}`,
 				},
@@ -57,9 +57,9 @@ function ProductInventoryandUpdatePage() {
 	async function handleSubmit(e) {
 		e.preventDefault();
 		try {
-			await axios
+			await Axios
 				.post(
-					"http://localhost:3001/api/productInventory/add-product",
+					"/productInventory/add-product",
 					{
 						...uploadInventoryForm,
 						price: Number(uploadInventoryForm.price),

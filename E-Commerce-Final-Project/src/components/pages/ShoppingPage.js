@@ -1,10 +1,10 @@
 import { Box, Typography } from "@mui/material";
-import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProductInventory } from "../../reduxStore";
 import Layout from "../layout/Layout";
 import ShoppingCardDisplayPage from "../layout/ShoppingCardDisplayPage";
+import Axios from "../lib/Axios";
 
 function ShoppingPage() {
 
@@ -13,8 +13,8 @@ function ShoppingPage() {
 
 	async function getInventory() {
 		try {
-			const response = await axios.get(
-				"http://localhost:3001/api/productInventory/");
+			const response = await Axios.get(
+				"/productInventory/");
 			dispatch({
 				type: updateProductInventory,
 				payload: {

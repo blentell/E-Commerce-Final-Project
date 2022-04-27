@@ -4,9 +4,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import Layout from '../layout/Layout'
   import { ToastContainer, toast } from "react-toastify";
 	import "react-toastify/dist/ReactToastify.css";
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateShoppingCart } from '../../reduxStore';
+import Axios from '../lib/Axios';
 
 function CheckoutPage() {
 	const navigate = useNavigate();
@@ -20,8 +20,8 @@ function CheckoutPage() {
 	const emptyCart = () => {
 		async function clearCart() {
 			try {
-				const response = await axios.delete(
-					`http://localhost:3001/api/cartDatabase/empty-cart`,
+				const response = await Axios.delete(
+					`/cartDatabase/empty-cart`,
 					{
 						headers: {
 							authorization: `Bearer ${window.localStorage.getItem(
@@ -49,8 +49,8 @@ function CheckoutPage() {
 		const notify = () => toast("Success!");
 
 		try {
-			const response = await axios.post(
-				"http://localhost:3001/api/orderHistoryDatabase/add-cartToHistory", {
+			const response = await Axios.post(
+				"/orderHistoryDatabase/add-cartToHistory", {
 					shoppingCart,
 					total,
 					date

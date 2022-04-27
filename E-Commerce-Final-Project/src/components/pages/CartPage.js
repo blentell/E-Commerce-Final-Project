@@ -3,7 +3,6 @@ import ReplayIcon from "@mui/icons-material/Replay";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -11,6 +10,7 @@ import CheckToken from "../../hooks/CheckToken";
 import { updateShoppingCart } from "../../reduxStore";
 import CartItem from "../layout/CartItem";
 import Layout from "../layout/Layout";
+import Axios from "../lib/Axios";
 
 
 function CartPage() {
@@ -25,8 +25,8 @@ function CartPage() {
 	const emptyCart = () => {
 			async function clearCart() {
 			try {
-				const response = await axios.delete(
-					`http://localhost:3001/api/cartDatabase/empty-cart`,
+				const response = await Axios.delete(
+					`/cartDatabase/empty-cart`,
 					{
 						headers: {
 							authorization: `Bearer ${window.localStorage.getItem(

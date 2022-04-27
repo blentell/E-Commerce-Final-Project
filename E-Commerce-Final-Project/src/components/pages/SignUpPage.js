@@ -1,5 +1,4 @@
 import React, {useEffect} from "react";
-import axios from "axios";
 import Layout from "../layout/Layout";
 import TextField from "@mui/material/TextField";
 import { Box } from "@mui/system";
@@ -12,6 +11,7 @@ import UsernameHooks from "../../hooks/UsernameHooks";
 import PasswordHooks from "../../hooks/PasswordHooks";
 import EmailHooks from "../../hooks/EmailHooks";
 import CheckToken from "../../hooks/CheckToken";
+import Axios from "../lib/Axios";
 
 function SignUpPage() {
   const navigate = useNavigate();
@@ -52,7 +52,7 @@ function SignUpPage() {
 	async function handleSubmit(e) {
 		e.preventDefault();
 		try {
-			await axios.post("http://localhost:3001/api/users/create-user", {
+			await Axios.post("/users/create-user", {
 				firstName,
 				lastName,
 				username,

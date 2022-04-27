@@ -6,12 +6,12 @@ import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import axios from "axios";
 import React from "react";
 import { useDispatch } from "react-redux";
 import {
 	updateShoppingCart
 } from "../../reduxStore";
+import Axios from "../lib/Axios";
 
 export default function CartItem(props) {
 	const {
@@ -23,8 +23,8 @@ export default function CartItem(props) {
 	const removeItem = (id) => {
 		async function deleteFromCart() {
 			try {
-				const response = await axios.delete(
-					`http://localhost:3001/api/cartDatabase/delete-cart-item/${id}`,
+				const response = await Axios.delete(
+					`/cartDatabase/delete-cart-item/${id}`,
 					{
 						headers: {
 							authorization: `Bearer ${window.localStorage.getItem(
@@ -49,8 +49,8 @@ export default function CartItem(props) {
 const increaseQuantity = (id) => {
 	async function increaseQuantityFromCart() {
 		try {
-			const response = await axios.put(
-				`http://localhost:3001/api/cartDatabase/update-cart-item/${id}`, {
+			const response = await Axios.put(
+				`/cartDatabase/update-cart-item/${id}`, {
 					quantity: quantity + 1, 
 				},
 				{
@@ -77,8 +77,8 @@ const increaseQuantity = (id) => {
 	const decreaseQuantity = (id) => {
 		async function decreaseQuantityFromCart() {
 			try {
-				const response = await axios.put(
-					`http://localhost:3001/api/cartDatabase/update-cart-item/${id}`,
+				const response = await Axios.put(
+					`/cartDatabase/update-cart-item/${id}`,
 					{
 						quantity: quantity - 1,
 					},
